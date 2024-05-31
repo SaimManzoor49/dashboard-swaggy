@@ -200,6 +200,7 @@ const AddProduct = () => {
               htmlType="submit"
               icon={<PlusOutlined />}
               loading={uploading}
+              disabled={productLoading}
             >
               Add Product
             </Button>
