@@ -88,6 +88,7 @@ const AddProduct = () => {
       const productData = { ...values, imageUrls };
       console.log('Received values:', productData);
       addProductData({variables:productData})
+      form.resetFields()
       // You can handle the form submission here, e.g., send the data to your API
     } catch (error) {
       console.error('Failed to upload image:', error);
