@@ -28,8 +28,9 @@ const AddCategory = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <h1>Add Category</h1>
+    <div className="min-h-screen p-6">
+    <div className="max-w-4xl mx-auto bg-white p-6 rounded-md">
+      <h1 className="text-2xl font-bold mb-6 text-black">Add New Product</h1>
       <Form
         name="add-category-form"
         onFinish={onFinish}
@@ -51,6 +52,7 @@ const AddCategory = () => {
           </Button>
         </Form.Item>
       </Form>
+    </div>
     </div>
   );
 };

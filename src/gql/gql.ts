@@ -13,8 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  ": types.AddCategoryDocument,
     "\n    query GetAllCategories {\n      getAllCategories {\n        id\n        name\n        slug\n      }\n    }\n  ": types.GetAllCategoriesDocument,
+    "mutation CreateProduct($name: String!, $description: String!, $price: Float!, $quantity: Int!, $shipping: Boolean!, $category: String!, $imageUrls: [String!]!) {\n    createProduct(name: $name, description: $description, price: $price, quantity: $quantity, shipping: $shipping, category: $category, imageUrls: $imageUrls) {\n      category\n      description\n      id\n      images\n      name\n      price\n      quantity\n      shipping\n      slug\n    }\n  }\n  ": types.CreateProductDocument,
+    "\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  ": types.AddCategoryDocument,
 };
 
 /**
@@ -34,11 +35,15 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  "): (typeof documents)["\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  "];
+export function graphql(source: "\n    query GetAllCategories {\n      getAllCategories {\n        id\n        name\n        slug\n      }\n    }\n  "): (typeof documents)["\n    query GetAllCategories {\n      getAllCategories {\n        id\n        name\n        slug\n      }\n    }\n  "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query GetAllCategories {\n      getAllCategories {\n        id\n        name\n        slug\n      }\n    }\n  "): (typeof documents)["\n    query GetAllCategories {\n      getAllCategories {\n        id\n        name\n        slug\n      }\n    }\n  "];
+export function graphql(source: "mutation CreateProduct($name: String!, $description: String!, $price: Float!, $quantity: Int!, $shipping: Boolean!, $category: String!, $imageUrls: [String!]!) {\n    createProduct(name: $name, description: $description, price: $price, quantity: $quantity, shipping: $shipping, category: $category, imageUrls: $imageUrls) {\n      category\n      description\n      id\n      images\n      name\n      price\n      quantity\n      shipping\n      slug\n    }\n  }\n  "): (typeof documents)["mutation CreateProduct($name: String!, $description: String!, $price: Float!, $quantity: Int!, $shipping: Boolean!, $category: String!, $imageUrls: [String!]!) {\n    createProduct(name: $name, description: $description, price: $price, quantity: $quantity, shipping: $shipping, category: $category, imageUrls: $imageUrls) {\n      category\n      description\n      id\n      images\n      name\n      price\n      quantity\n      shipping\n      slug\n    }\n  }\n  "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  "): (typeof documents)["\nmutation AddCategory($name: String!) {\n    addCategory(name: $name) {\n      id\n      name\n      slug\n    }\n  }\n  "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

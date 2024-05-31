@@ -2,13 +2,12 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, Switch, Upload, message, Select, Radio } from 'antd';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import cloudinary from '../utils/cloudinary'; // Import the Cloudinary configuration
+import cloudinary from '@/utils/cloudinary'; // Import the Cloudinary configuration
 import { Option } from 'antd/es/mentions';
-// import { graphql } from '../gql/gql';
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { graphql } from '@/gql';
 
-const Dashboard = () => {
+const AddProduct = () => {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<any>([]);
   const [uploading, setUploading] = useState(false);
@@ -24,8 +23,25 @@ const Dashboard = () => {
     }
   `);
 
+  const ADD_PRODUCT = graphql(`mutation CreateProduct($name: String!, $description: String!, $price: Float!, $quantity: Int!, $shipping: Boolean!, $category: String!, $imageUrls: [String!]!) {
+    createProduct(name: $name, description: $description, price: $price, quantity: $quantity, shipping: $shipping, category: $category, imageUrls: $imageUrls) {
+      category
+      description
+      id
+      images
+      name
+      price
+      quantity
+      shipping
+      slug
+    }
+  }
+  `);
+
 
   const { data, loading, error } = useQuery(CATEGORY_QUERY);
+
+  const [addProductData ,{ data:productData, loading:productLoading, error:productError }] = useMutation(ADD_PRODUCT);
 
   useEffect(()=>{
   if(data){
@@ -71,6 +87,7 @@ const Dashboard = () => {
       const imageUrls = await handleUpload();
       const productData = { ...values, imageUrls };
       console.log('Received values:', productData);
+      addProductData({variables:productData})
       // You can handle the form submission here, e.g., send the data to your API
     } catch (error) {
       console.error('Failed to upload image:', error);
@@ -85,9 +102,11 @@ const Dashboard = () => {
     }
   };
 
+  console.log(productData)
+
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-md shadow-md">
+    <div className="min-h-screen p-6">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-md">
         <h1 className="text-2xl font-bold mb-6 text-black">Add New Product</h1>
         <Form
           form={form}
@@ -190,4 +209,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AddProduct;

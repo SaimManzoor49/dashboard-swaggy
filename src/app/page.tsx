@@ -4,8 +4,7 @@ import AddCategory from "@/components/AddCategory";
 export default function Home() {
   return (
     <>
-     <AddPrduct />
-    <AddCategory />
+    Hello World!
     </>
   );
 }
